@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// ls() returns the length of the longest
+// increasing subsequence in arr[] of size n
+int ls(int arr[], int n) {
+  int ls[n];
+
+  ls[0] = 1;
+
+  // Compute optimized LIS values in
+  // bottom up manner
+  for (int i = 1; i < n; i++) {
+    ls[i] = 1;
+    for (int j = 0; j < i; j++)
+      if (arr[i] > arr[j] && ls[i] < ls[j] + 1)
+        ls[i] = ls[j] + 1;
+  }
+
+  // Return maximum value in lis[]
+  return *max_element(lis, lis + n);
+}
+
+int main() {
+  int n;
+  cout << "Enter the number of elements in the array: ";
+  cin >> n;
+
+  int arr[n];
+  for (int i = 0; i < n; i++) {
+    cout << "Enter element " << i + 1 << ": ";
+    cin >> arr[i];
+  }
+
+  // Function call
+  int lisLength = ls(arr, n);
+  cout << "Length of lis is " << lisLength << endl;
+
+  return 0;
+}
